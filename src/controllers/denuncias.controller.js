@@ -1,49 +1,121 @@
 import { pool } from "../db.js"
 
 export const getDenuncias = async(req,res) => {
-    const [rows] = await pool.query('SELECT * FROM denuncia')
+    const [rows] = await pool.query('SELECT * FROM tb_denuncia')
+    /* #swagger.responses[200] = {
+          description: "Operacion exitosa",
+          content: {
+            "application/json": {
+              schema: { 
+                $ref: "#/definitions/myReferencedBillArray"                             
+              }
+            }
+          }
+      }
+  */
     res.json(rows)
 }
 
 export const getDenuncia = async(req,res) =>{
-    const [rows] = await pool.query('SELECT * FROM denuncia WHERE id = ?',[req.params.id])
+    const [rows] = await pool.query('SELECT * FROM tb_denuncia WHERE id = ?',[req.params.id])
     
     if(rows.length <= 0) return res.status(404).json({
         message: 'Denuncia no encontrada'
     })
-
+    /* #swagger.responses[200] = {
+          description: "Operacion exitosa",
+          content: {
+            "application/json": {
+              schema: { 
+                $ref: "#/definitions/Bill"
+              }
+            }
+          }
+      }
+  */
     res.json(rows[0])
 }
 
 
 export const createDenuncias = async (req,res) => {
-    const {tipo,nombre,dni,telefono}=req.body
-    const[rows]=await pool.query('INSERT INTO denuncia (tipo,nombre,dni,telefono) VALUES (?,?,?,?)',
-    [tipo,nombre,dni,telefono])
-    
+    const {nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha}=req.body
+    const[rows]=await pool.query('INSERT INTO tb_denuncia (nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha) VALUES (?,?,?,?)',
+    [nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha])
+    /* #swagger.requestBody = {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/definitions/Bill"
+            }
+          }
+        }
+      }
+
+     #swagger.responses[200] = {
+        description: "Operacion exitosa",
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/definitions/Bill"
+            }
+          }
+        }
+      }
+  */
     res.send({
         id: rows.insertId,
-        tipo,
-        nombre,
+        nombres,
+        edad,
         dni,
         telefono,
+        domicilio,
+        tipo,
+        agresor,
+        sexoagresor,
+        genero,
+        telefonoagresor,
+        localizacion,
+        calle,
+        fecha,
     })
 }
 
 export const updateDenuncias = async(req,res) => {
     const { id } = req.params
-    const { tipo, nombre, dni, telefono } = req.body
+    const { nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha } = req.body
     
-    const [result] = await pool.query('UPDATE denuncia SET tipo = IFNULL(?,tipo), nombre = IFNULL(?,nombre), dni = IFNULL(?,dni), telefono = IFNULL(?,telefono) WHERE id = ?',
-    [tipo, nombre, dni, telefono, id])
+    const [result] = await pool.query('UPDATE tb_denuncia SET nombres = IFNULL(?,nombres), edad = IFNULL(?,edad), dni = IFNULL(?,dni), telefono = IFNULL(?,telefono), domicilio = IFNULL(?,domicilio), tipo = IFNULL(?,tipo) WHERE id = ?',
+    [nombres, edad, dni, telefono, domicilio, tipo, agresor, sexoagresor, genero, telefonoagresor, localizacion, calle, fecha, id])
 
     console.log(result)
 
     if(result.affectedRows === 0) return res.status(404).json({
         message: 'Denuncia no encontrada'
     })
-    const [rows] = await pool.query('SELECT * FROM denuncia WHERE id = ?',[id])
+    const [rows] = await pool.query('SELECT * FROM tb_denuncia WHERE id = ?',[id])
+    /* #swagger.requestBody = {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/definitions/Bill"
+            }
+          }
+        }
+      }
 
+     #swagger.responses[200] = {
+        description: "Operacion exitosa",
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/definitions/Bill"
+            }
+          }
+        }
+      }
+  */
     res.json(rows[0])
 }
 
@@ -54,6 +126,27 @@ const [result] = await pool.query('DELETE FROM denuncia WHERE id = ?',[req.param
 if(result.affectedRows <= 0) return res.status(404).json({
     message:'Denuncia no encontrada'
 })
+/* #swagger.requestBody = {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/definitions/Bill"
+            }
+          }
+        }
+      }
 
+     #swagger.responses[200] = {
+        description: "Operacion exitosa",
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/definitions/Bill"
+            }
+          }
+        }
+      }
+  */
 res.sendStatus(204)
 }
