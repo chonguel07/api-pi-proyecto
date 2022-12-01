@@ -38,9 +38,9 @@ export const getDenuncia = async(req,res) =>{
 
 
 export const createDenuncias = async (req,res) => {
-    const {nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha}=req.body
-    const[rows]=await pool.query('INSERT INTO tb_denuncia (nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha) VALUES (?,?,?,?)',
-    [nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha])
+    const {nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos}=req.body
+    const[rows]=await pool.query('INSERT INTO tb_denuncia (nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+    [nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos])
     /* #swagger.requestBody = {
         required: true,
         content: {
@@ -78,15 +78,16 @@ export const createDenuncias = async (req,res) => {
         localizacion,
         calle,
         fecha,
+        hechos,
     })
 }
 
 export const updateDenuncias = async(req,res) => {
     const { id } = req.params
-    const { nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha } = req.body
+    const { nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha, hechos } = req.body
     
-    const [result] = await pool.query('UPDATE tb_denuncia SET nombres = IFNULL(?,nombres), edad = IFNULL(?,edad), dni = IFNULL(?,dni), telefono = IFNULL(?,telefono), domicilio = IFNULL(?,domicilio), tipo = IFNULL(?,tipo) WHERE id = ?',
-    [nombres, edad, dni, telefono, domicilio, tipo, agresor, sexoagresor, genero, telefonoagresor, localizacion, calle, fecha, id])
+    const [result] = await pool.query('UPDATE tb_denuncia SET nombres = IFNULL(?,nombres), edad = IFNULL(?,edad), dni = IFNULL(?,dni), telefono = IFNULL(?,telefono), domicilio = IFNULL(?,domicilio), tipo = IFNULL(?,tipo), agresor = IFNULL(?,agresor), sexoagresor = IFNULL(?,sexoagresor), genero = IFNULL(?,genero), telefonoagresor = IFNULL(?,telefonoagresor), localizacion = IFNULL(?,localizacion), calle = IFNULL(?,calle), fecha = IFNULL(?,fecha), hechos = IFNULL(?,hechos) WHERE id = ?',
+    [nombres, edad, dni, telefono, domicilio, tipo, agresor, sexoagresor, genero, telefonoagresor, localizacion, calle, fecha, hechos, id])
 
     console.log(result)
 
@@ -121,7 +122,7 @@ export const updateDenuncias = async(req,res) => {
 
 
 export const deleteDenuncias = async(req,res) => {
-const [result] = await pool.query('DELETE FROM denuncia WHERE id = ?',[req.params.id])
+const [result] = await pool.query('DELETE FROM tb_denuncia WHERE id = ?',[req.params.id])
 
 if(result.affectedRows <= 0) return res.status(404).json({
     message:'Denuncia no encontrada'

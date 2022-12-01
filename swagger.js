@@ -22,34 +22,93 @@ const doc = {
                 description: "tipo de la denuncia",
                 example: 6
               },
-            tipo: {
+            nombres: {
               type: "string",
-              description: "tipo de la denuncia",
-              example: "6"
+              description: "nombre",
+              example: "Alberta Fernandez"
             },
-            nombre: {
+            edad: {
               type: "string",
-              description: "nombre de denuncia",
-              example: "fisica"
+              description: "edad",
+              example: "20"
             },
             dni: {
               type: "string",
               description: "dni de la victima",
-              example: "Maria Jose"
+              example: "87654321"
             },
             telefono: {
               type: "string",
               description: "telefono de la victima",
-              example: "76543210"
+              example: "987654321"
             },
-                     
+            domicilio: {
+              type: "string",
+              description: "domicilio de la victima",
+              example: "Mz.B0.Lt 00"
+            },      
+            tipo: {
+              type: "string",
+              description: "tipo de denuncia",
+              example: "Fisico"
+            },
+            agresor: {
+              type: "string",
+              description: "nombre del agresor",
+              example: "Jose"
+            },
+            sexoagresor: {
+              type: "string",
+              description: "genero agresor",
+              example: "Masculino"
+            },
+            genero: {
+              type: "string",
+              description: "genero",
+              example: "Femenino"
+            },
+            telefonoagresor: {
+              type: "string",
+              description: "telefono del agresor",
+              example: "966666666"
+            }, 
+            localizacion: {
+              type: "string",
+              description: "lugar de los hechos",
+              example: "SJL"
+            }, 
+            calle: {
+              type: "string",
+              description: "calle",
+              example: "Calle Durazno"
+            }, 
+            fecha: {
+              type: "datetime",
+              description: "fecha",
+              example: "2022-10-10"
+            },
+            hechos: {
+              type: "string",
+              description: "descripcion de los hechos",
+              example: "Ocurrio cuando estaba..."
+            }, 
           },
           example: {
             id: 6,
-            tipo: "fisica",
-            nombre: "Maria Jose",
-            dni: "76543210",
-            telefono: "987654321"
+            nombres: "Alberta Fernandez",
+            edad: "20",
+            dni: "87654321",
+            telefono: "987654321",
+            domicilio: "Mz.B0.Lt 00",
+            tipo: "Fisico",
+            agresor: "Jose",
+            sexoagresor: "Masculino",
+            genero: "Femenino",
+            telefonoagresor: "966666666",
+            localizacion: "SJL",
+            calle: "Calle Durazno",
+            fecha: "2022-10-10",
+            hechos: "Ocurrio cuando estaba..."
           }
         }
       }
