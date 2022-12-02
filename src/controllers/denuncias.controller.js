@@ -38,9 +38,9 @@ export const getDenuncia = async(req,res) =>{
 
 
 export const createDenuncias = async (req,res) => {
-    const {nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos}=req.body
-    const[rows]=await pool.query('INSERT INTO tb_denuncia (nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-    [nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos])
+    const {nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos,estado}=req.body
+    const[rows]=await pool.query('INSERT INTO tb_denuncia (nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos,estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+    [nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha,hechos,estado])
     /* #swagger.requestBody = {
         required: true,
         content: {
@@ -64,30 +64,31 @@ export const createDenuncias = async (req,res) => {
       }
   */
     res.send({
-        id: rows.insertId,
-        nombres,
-        edad,
-        dni,
-        telefono,
-        domicilio,
-        tipo,
-        agresor,
-        sexoagresor,
-        genero,
-        telefonoagresor,
-        localizacion,
-        calle,
-        fecha,
-        hechos,
+      id: rows.insertId,
+      nombres,
+      edad,
+      dni,
+      telefono,
+      domicilio,
+      tipo,
+      agresor,
+      sexoagresor,
+      genero,
+      telefonoagresor,
+      localizacion,
+      calle,
+      fecha,
+      hechos,
+      estado,
     })
 }
 
 export const updateDenuncias = async(req,res) => {
     const { id } = req.params
-    const { nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha, hechos } = req.body
+    const { nombres,edad,dni,telefono,domicilio,tipo,agresor,sexoagresor,genero,telefonoagresor,localizacion,calle,fecha, hechos, estado } = req.body
     
-    const [result] = await pool.query('UPDATE tb_denuncia SET nombres = IFNULL(?,nombres), edad = IFNULL(?,edad), dni = IFNULL(?,dni), telefono = IFNULL(?,telefono), domicilio = IFNULL(?,domicilio), tipo = IFNULL(?,tipo), agresor = IFNULL(?,agresor), sexoagresor = IFNULL(?,sexoagresor), genero = IFNULL(?,genero), telefonoagresor = IFNULL(?,telefonoagresor), localizacion = IFNULL(?,localizacion), calle = IFNULL(?,calle), fecha = IFNULL(?,fecha), hechos = IFNULL(?,hechos) WHERE id = ?',
-    [nombres, edad, dni, telefono, domicilio, tipo, agresor, sexoagresor, genero, telefonoagresor, localizacion, calle, fecha, hechos, id])
+    const [result] = await pool.query('UPDATE tb_denuncia SET nombres = IFNULL(?,nombres), edad = IFNULL(?,edad), dni = IFNULL(?,dni), telefono = IFNULL(?,telefono), domicilio = IFNULL(?,domicilio), tipo = IFNULL(?,tipo), agresor = IFNULL(?,agresor), sexoagresor = IFNULL(?,sexoagresor), genero = IFNULL(?,genero), telefonoagresor = IFNULL(?,telefonoagresor), localizacion = IFNULL(?,localizacion), calle = IFNULL(?,calle), fecha = IFNULL(?,fecha), hechos = IFNULL(?,hechos), estado = IFNULL(?,estado) WHERE id = ?',
+    [nombres, edad, dni, telefono, domicilio, tipo, agresor, sexoagresor, genero, telefonoagresor, localizacion, calle, fecha, hechos, estado, id])
 
     console.log(result)
 

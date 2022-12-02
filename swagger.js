@@ -91,7 +91,12 @@ const doc = {
               type: "string",
               description: "descripcion de los hechos",
               example: "Ocurrio cuando estaba..."
-            }, 
+            },
+            estado: {
+              type: "string",
+              description: "estado de la denuncia",
+              example: "Aprobado"
+            },
           },
           example: {
             id: 6,
@@ -108,7 +113,8 @@ const doc = {
             localizacion: "SJL",
             calle: "Calle Durazno",
             fecha: "2022-10-10",
-            hechos: "Ocurrio cuando estaba..."
+            hechos: "Ocurrio cuando estaba...",
+            estado: "Aprobado"
           }
         }
       }
